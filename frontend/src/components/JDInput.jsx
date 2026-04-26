@@ -20,7 +20,7 @@ export default function JDInput({ onSubmit, loading }) {
       <label
         style={{ display: "block", fontWeight: 600, marginBottom: 10, color: "#1e293b" }}
       >
-        Job Description
+        Job Description (Ex: Take from README file or company website)
       </label>
       <textarea
         value={value}
