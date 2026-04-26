@@ -113,3 +113,9 @@ PORT=7007
 - Candidate data is mocked in `data/candidates.json` (25 profiles)
 - Each run takes 60–90 seconds due to sequential API calls to avoid rate limits
 - Conversations are fully AI-simulated — no real candidates are contacted
+
+## Sample Input JD
+
+```
+We are looking for a senior React developer with 5+ years experience in TypeScript and Node.js. Remote friendly. Fast-paced startup environment.
+```
