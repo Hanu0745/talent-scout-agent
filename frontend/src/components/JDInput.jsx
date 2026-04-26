@@ -27,6 +27,7 @@ export default function JDInput({ onSubmit, loading }) {
         onChange={(e) => setValue(e.target.value)}
         placeholder="Paste your job description here..."
         disabled={loading}
+        maxLength={2000}
         style={{
           width: "100%",
           minHeight: 120,
@@ -45,6 +46,9 @@ export default function JDInput({ onSubmit, loading }) {
         onFocus={(e) => (e.target.style.borderColor = "#3b82f6")}
         onBlur={(e) => (e.target.style.borderColor = "#cbd5e1")}
       />
+      <div style={{ textAlign: "right", fontSize: 12, color: value.length > 1800 ? "#ef4444" : "#94a3b8", marginTop: 4 }}>
+        {value.length} / 2000
+      </div>
       <button
         onClick={handleClick}
         disabled={loading || !value.trim()}

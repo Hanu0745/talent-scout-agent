@@ -4,6 +4,7 @@ import JDInput from "./components/JDInput";
 import ParsedJDSummary from "./components/ParsedJDSummary";
 import OutreachFeed from "./components/OutreachFeed";
 import CandidateCard from "./components/CandidateCard";
+import FilterBar from "./components/FilterBar";
 
 const LOADING_STEPS = [
   "Parsing job description",
@@ -15,6 +16,7 @@ const LOADING_STEPS = [
 export default function App() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
+  const [filteredCandidates, setFilteredCandidates] = useState([]);
   const [error, setError] = useState(null);
   const [loadingStep, setLoadingStep] = useState(0);
 
@@ -33,6 +35,7 @@ export default function App() {
     try {
       const data = await scoutCandidates(jobDescription);
       setResults(data);
+      setFilteredCandidates(data.candidates);
     } catch (err) {
       setError(err.message || "Something went wrong");
     } finally {
@@ -157,13 +160,15 @@ export default function App() {
             <ParsedJDSummary parsedJD={results.parsedJD} />
             {/* <OutreachFeed candidates={results.candidates} /> */}
 
+            <FilterBar candidates={results.candidates} onFilter={setFilteredCandidates} />
+
             {/* Heading row with export button */}
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                margin: "0 0 16px",
+                margin: "0 0 8px",
               }}
             >
               <h2 style={{ fontSize: 17, fontWeight: 700, color: "#0f172a", margin: 0 }}>
@@ -186,7 +191,11 @@ export default function App() {
               </button>
             </div>
 
-            {results.candidates.map((candidate) => (
+            <p style={{ fontSize: 13, color: "#94a3b8", margin: "0 0 16px" }}>
+              Showing {filteredCandidates.length} of {results.candidates.length} candidates
+            </p>
+
+            {filteredCandidates.map((candidate) => (
               <CandidateCard key={candidate.id} candidate={candidate} />
             ))}
           </>
